@@ -28,28 +28,38 @@ function getTonnages(variants: ProductModel['variants']) {
 }
 
 export async function SplitACGrid({ hideViewAll = false }: { hideViewAll?: boolean }) {
-  const payload = await getPayload({ config: configPromise })
+  let splitAcCategories: import('@/payload-types').Category[] = []
+  let fetchedProducts: import('@/payload-types').ProductModel[] = []
+  let splitAcCat: import('@/payload-types').Category | undefined
 
-  // First fetch the 'Split AC' category to get its ID
-  const { docs: splitAcCategories } = await payload.find({
-    collection: 'categories',
-    where: {
-      name: {
-        like: 'Split', // flexible match
+  try {
+    const payload = await getPayload({ config: configPromise })
+
+    // First fetch the 'Split AC' category to get its ID
+    const { docs } = await payload.find({
+      collection: 'categories',
+      where: {
+        name: {
+          like: 'Split', // flexible match
+        },
       },
-    },
-    limit: 1,
-  })
+      limit: 1,
+    })
+    splitAcCategories = docs || []
 
-  const splitAcCat = splitAcCategories[0]
+    splitAcCat = splitAcCategories[0]
 
-  // Fetch some popular products (e.g. latest 4)
-  const { docs: fetchedProducts } = await payload.find({
-    collection: 'product-models',
-    ...(splitAcCat ? { where: { category: { equals: splitAcCat.id } } } : {}),
-    limit: 4,
-    sort: '-createdAt',
-  })
+    // Fetch some popular products (e.g. latest 4)
+    const { docs: products } = await payload.find({
+      collection: 'product-models',
+      ...(splitAcCat ? { where: { category: { equals: splitAcCat.id } } } : {}),
+      limit: 4,
+      sort: '-createdAt',
+    })
+    fetchedProducts = products || []
+  } catch (_) {
+    console.warn('Database unreachable. Falling back to empty split AC products.')
+  }
 
   const linkHref = splitAcCat?.slug ? `/categories/${splitAcCat.slug}` : `/catalogue`
 
@@ -75,7 +85,7 @@ export async function SplitACGrid({ hideViewAll = false }: { hideViewAll?: boole
           <p className="text-bodyMedium text-textAlt">This category is empty.</p>
         </div>
       ) : (
-        <div className="flex flex-col md:flex-row items-center md:items-start hide-scrollbar gap-[24px] w-full max-w-container mx-auto pb-4 md:overflow-x-auto md:snap-x">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-[24px] w-full max-w-container mx-auto pb-4 pt-1">
           {fetchedProducts.map((product) => {
             const priceRange = getPriceRange(product.variants)
             const tonnages = getTonnages(product.variants)
@@ -93,14 +103,14 @@ export async function SplitACGrid({ hideViewAll = false }: { hideViewAll?: boole
             }
 
             return (
-              <div key={product.id} className="w-full sm:w-auto shrink-0 md:snap-start">
-                <ProductCard
-                  name={product.name || product.series}
-                  priceRange={priceRange}
-                  tonnages={tonnages}
-                  imageUrl={imageUrl}
-                />
-              </div>
+              <ProductCard
+                key={product.id}
+                name={product.name || product.series}
+                priceRange={priceRange}
+                tonnages={tonnages}
+                imageUrl={imageUrl}
+                href={`/products/${product.slug || product.id}`}
+              />
             )
           })}
         </div>

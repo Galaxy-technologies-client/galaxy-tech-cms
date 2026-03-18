@@ -66,9 +66,14 @@ export function Footer() {
 
       {/* Bottom Bar: Copyright & Privacy */}
       <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-container mx-auto pt-lg border-t-[0.5px] border-grey mt-m gap-m">
-        <p className="text-bodySmall font-regular text-textAlt">
-          &copy; {new Date().getFullYear()} Galaxy Technologies. All rights reserved.
-        </p>
+        <div className="flex flex-col items-center md:items-start gap-1">
+          <p className="text-bodySmall font-regular text-textAlt text-center md:text-left">
+            &copy; {new Date().getFullYear()} Galaxy Technologies. All rights reserved.
+          </p>
+          <p className="text-bodySmall font-regular text-textAlt text-center md:text-left">
+            Created by Lightbulb Creative Media & Pixelab
+          </p>
+        </div>
         <div className="flex items-center">
           <a href="#" className="text-bodySmall text-textAlt hover:text-primary transition-colors">
             Privacy Policy

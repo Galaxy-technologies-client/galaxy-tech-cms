@@ -6,19 +6,25 @@ import configPromise from '@payload-config'
 import type { Media } from '@/payload-types'
 
 export async function ProductCategories({ hideHeader = false }: { hideHeader?: boolean } = {}) {
-  const payload = await getPayload({ config: configPromise })
-  const { docs: fetchedCategories } = await payload.find({
-    collection: 'categories',
-    limit: 10,
-    sort: 'createdAt',
-  })
+  let fetchedCategories: import('@/payload-types').Category[] = []
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const { docs } = await payload.find({
+      collection: 'categories',
+      limit: 10,
+      sort: 'createdAt',
+    })
+    fetchedCategories = docs || []
+  } catch (_) {
+    console.warn('Database unreachable. Falling back to empty categories.')
+  }
 
   // Define the required order
   const order = ['Split AC', 'Cassette AC', 'Ductable Systems', 'VRV / VRF', 'Tower AC']
 
   // Sort categories based on the defined order (ignore case/spacing mismatches gracefully)
   const categories = fetchedCategories.sort((a, b) => {
-    const normalize = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '')
+    const normalize = (name?: string | null) => (name || '').toLowerCase().replace(/[^a-z0-9]/g, '')
     const indexA = order.findIndex((o) => normalize(o) === normalize(a.name))
     const indexB = order.findIndex((o) => normalize(o) === normalize(b.name))
 
@@ -76,18 +82,18 @@ export async function ProductCategories({ hideHeader = false }: { hideHeader?: b
                 {/* Text */}
                 <div className="flex flex-col gap-xs mt-2">
                   <h3 className="text-h6 font-semibold text-primaryDarkAlt leading-tight group-hover:text-primary transition-colors">
-                    {category.name.toLowerCase().includes('split')
+                    {(category.name || '').toLowerCase().includes('split')
                       ? 'Split AC Models'
-                      : category.name.toLowerCase().includes('cassette')
+                      : (category.name || '').toLowerCase().includes('cassette')
                         ? 'Cassette AC Models'
-                        : category.name.toLowerCase().includes('duct')
+                        : (category.name || '').toLowerCase().includes('duct')
                           ? 'Ductable Systems'
-                          : category.name.toLowerCase().includes('vrv') ||
-                              category.name.toLowerCase().includes('vrf')
+                          : (category.name || '').toLowerCase().includes('vrv') ||
+                              (category.name || '').toLowerCase().includes('vrf')
                             ? 'VRV / VRF Systems'
-                            : category.name.toLowerCase().includes('tower')
+                            : (category.name || '').toLowerCase().includes('tower')
                               ? 'Tower AC Models'
-                              : category.name}
+                              : category.name || 'Unknown Category'}
                   </h3>
                   {category.short_description && (
                     <p className="text-bodySmall text-textAlt leading-snug">

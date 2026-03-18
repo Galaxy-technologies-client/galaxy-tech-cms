@@ -1,12 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
 
+import Link from 'next/link'
+
 export interface ProductCardProps {
   name: string
   priceRange: string
   imageUrl?: string
   tonnages?: string[]
   className?: string
+  href?: string
 }
 
 export function ProductCard({
@@ -15,9 +18,10 @@ export function ProductCard({
   imageUrl,
   tonnages,
   className = '',
+  href,
 }: ProductCardProps) {
-  // Handle tonnages display logic: max 4 items, else show 2 + "X more"
-  const maxVisibleTonnages = 4
+  // Handle tonnages display logic: max 3 items, else show 2 + "X more"
+  const maxVisibleTonnages = 3
   let displayTonnages = tonnages || []
   let extraCount = 0
 
@@ -26,30 +30,36 @@ export function ProductCard({
     extraCount = (tonnages || []).length - 2
   }
 
-  return (
-    <div
-      className={`group flex flex-col w-full max-w-[262px] mx-auto justify-center items-end rounded-[20px] border-[0.5px] border-border bg-white overflow-hidden transition-shadow duration-300 hover:shadow-md ${className}`}
-    >
-      <div className="w-full aspect-[4/3] bg-[#A9A9A9] rounded-t-lg overflow-hidden shrink-0 relative flex justify-center items-center">
+  const containerClasses = `group flex flex-col w-full h-full rounded-[20px] border border-border bg-white overflow-hidden transition-shadow duration-300 hover:shadow-md ${
+    href ? 'cursor-pointer' : ''
+  } ${className}`
+
+  const content = (
+    <>
+      <div className="w-full aspect-[4/3] bg-white shrink-0 relative flex justify-center items-center p-4">
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt={name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <span className="text-white/60 text-sm font-medium">No Image</span>
+          <div className="w-full h-full bg-[#A9A9A9] flex items-center justify-center">
+            <span className="text-white/60 text-sm font-medium">No Image</span>
+          </div>
         )}
       </div>
 
       {/* Product Details (Text Box) */}
-      <div className="flex flex-col flex-1 justify-center items-end self-stretch p-s gap-xs">
+      <div className="flex flex-col items-start self-stretch p-s gap-xs bg-lightGrey flex-1 group-hover:bg-[#F2F4F7] transition-colors duration-300">
         {/* Heading */}
-        <h3 className="text-primaryDarkAlt font-poppins text-h5 font-semibold text-left">{name}</h3>
+        <h3 className="text-primaryDarkAlt font-poppins text-h5 font-semibold text-left w-full group-hover:text-primary transition-colors">
+          {name}
+        </h3>
 
         {/* Pricing */}
-        <p className="text-textAlt font-poppins text-bodySmall font-regular text-left">
+        <p className="text-textAlt font-poppins text-bodySmall font-regular text-left w-full">
           {priceRange}
         </p>
 
@@ -59,16 +69,16 @@ export function ProductCard({
             {displayTonnages.map((tonnage, index) => (
               <div
                 key={index}
-                className="flex py-[4px] px-xs justify-center items-center gap-[10px] rounded-xxl border-[0.25px] border-borderDark bg-primarySurface"
+                className="flex py-[4px] px-[12px] justify-center items-center rounded-full border border-borderDark bg-[#F0F8FB] transition-colors group-hover:border-primary group-hover:bg-primarySurface"
               >
-                <span className="overflow-hidden text-ellipsis whitespace-nowrap text-primaryDark font-inter text-bodyExtraSmall font-regular">
+                <span className="text-primaryDark font-inter text-bodyExtraSmall font-medium">
                   {tonnage}
                 </span>
               </div>
             ))}
             {extraCount > 0 && (
-              <div className="flex py-[4px] px-xs justify-center items-center gap-[10px] rounded-xxl border-[0.25px] border-borderDark bg-primarySurface">
-                <span className="overflow-hidden text-ellipsis whitespace-nowrap text-primaryDark font-inter text-bodyExtraSmall font-regular">
+              <div className="flex py-[4px] px-[12px] justify-center items-center rounded-full border border-borderDark bg-[#F0F8FB] transition-colors group-hover:border-primary group-hover:bg-primarySurface">
+                <span className="text-primaryDark font-inter text-bodyExtraSmall font-medium">
                   +{extraCount}
                 </span>
               </div>
@@ -76,6 +86,16 @@ export function ProductCard({
           </div>
         )}
       </div>
-    </div>
+    </>
   )
+
+  if (href) {
+    return (
+      <Link href={href} className={containerClasses}>
+        {content}
+      </Link>
+    )
+  }
+
+  return <div className={containerClasses}>{content}</div>
 }

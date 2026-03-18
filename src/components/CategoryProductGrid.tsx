@@ -144,7 +144,7 @@ export function CategoryProductGrid({
           <p className="text-bodyMedium text-textAlt">No products match the selected filters.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[24px] w-full max-w-container mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-[24px] w-full max-w-container mx-auto">
           {filteredProducts.map((product) => {
             const priceRange = getPriceRange(product.variants)
             const tonnages = getTonnages(product.variants)
@@ -162,14 +162,14 @@ export function CategoryProductGrid({
             }
 
             return (
-              <div key={product.id} className="flex justify-center w-full">
-                <ProductCard
-                  name={product.name || product.series}
-                  priceRange={priceRange}
-                  tonnages={tonnages}
-                  imageUrl={imageUrl}
-                />
-              </div>
+              <ProductCard
+                key={product.id}
+                name={product.name || product.series}
+                priceRange={priceRange}
+                tonnages={tonnages}
+                imageUrl={imageUrl}
+                href={`/products/${product.slug || product.id}`}
+              />
             )
           })}
         </div>
