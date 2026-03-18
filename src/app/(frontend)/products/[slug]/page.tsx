@@ -175,13 +175,13 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                   className="flex flex-col p-6 lg:p-8 border border-borderDark rounded-[20px] bg-white transition-shadow shadow-sm hover:shadow-md gap-6 w-full"
                 >
                   <div className="flex flex-col items-start gap-1">
-                    <h4 className="text-primary font-poppins text-[24px] font-semibold leading-[1.4]">
+                    <h4 className="text-primary font-poppins text-[20px] font-semibold leading-[1.4]">
                       {v.capacity ? `${v.capacity} Ton` : 'Unknown'}
                     </h4>
-                    <span className="text-primaryDark font-poppins text-[20px] font-semibold leading-[1.4]">
+                    <span className="text-primaryDark font-poppins text-[16px] font-semibold leading-[1.4]">
                       {v.modelNumber || 'Standard'}
                     </span>
-                    <span className="text-primaryDarkAlt font-poppins text-[20px] font-semibold leading-[1.4] mt-1">
+                    <span className="text-primaryDarkAlt font-poppins text-[16px] font-semibold leading-[1.4] mt-1">
                       {v.price ? `Rs ${v.price.toLocaleString('en-IN')}` : 'Price on request'}
                     </span>
                   </div>
