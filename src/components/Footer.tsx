@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import Button from './ui/Button'
 
 export function Footer() {
@@ -42,19 +43,19 @@ export function Footer() {
         <div className="flex flex-col items-start lg:items-end gap-m lg:pt-12 w-full lg:w-auto">
           <ul className="flex flex-col items-start lg:items-end gap-s text-bodySmall font-regular text-text">
             <li>
-              <a href="/" className="hover:text-primary transition-colors">
+              <Link href="/" className="hover:text-primary transition-colors">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/catalogue" className="hover:text-primary transition-colors">
+              <Link href="/catalogue" className="hover:text-primary transition-colors">
                 Catalogue
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/about" className="hover:text-primary transition-colors">
+              <Link href="/about" className="hover:text-primary transition-colors">
                 About us
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="mt-s">

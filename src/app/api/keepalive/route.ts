@@ -15,7 +15,7 @@ export async function GET() {
     })
 
     return NextResponse.json({ status: 'active', message: 'Keepalive successful' })
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { status: 'error', message: 'Failed to reach database' },
       { status: 500 },
