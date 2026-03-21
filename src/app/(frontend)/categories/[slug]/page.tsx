@@ -145,7 +145,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       </section>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col pb-xxxl pt-xl gap-xxl">
+      <div className="flex-1 flex flex-col pt-xl gap-xxl">
         <Reveal>
           <section className="flex flex-col items-center justify-center px-s md:px-xxxl w-full">
             <CategoryProductGrid

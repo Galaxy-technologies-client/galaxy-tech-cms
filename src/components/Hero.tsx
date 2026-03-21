@@ -51,7 +51,7 @@ export const Hero = () => {
             <Button
               variant="primary"
               size="sm"
-              onClick={() => (window.location.href = 'tel:+919876543210')}
+              href="tel:+919074025365"
             >
               Call us now
             </Button>

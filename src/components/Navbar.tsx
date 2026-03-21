@@ -20,7 +20,7 @@ export const Navbar = () => {
   }
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between w-full bg-white border-b border-grey py-m px-m md:px-xxl self-stretch">
+    <nav className="sticky top-0 z-50 flex items-center justify-between w-full bg-white border-b border-grey py-s px-s md:px-xxl self-stretch relative">
       {/* Logo */}
       <Link href="/" className="relative w-[180px] h-[32px] md:w-[240px] md:h-[40px]">
         <Image
@@ -33,7 +33,7 @@ export const Navbar = () => {
       </Link>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center gap-xl">
+      <div className="hidden md:flex items-center gap-xl absolute left-1/2 transform -translate-x-1/2">
         <ul className="flex items-center gap-lg">
           {navLinks.map((link) => (
             <li key={link.name}>
@@ -50,7 +50,7 @@ export const Navbar = () => {
 
       {/* Desktop Button */}
       <div className="hidden md:block">
-        <Button variant="primary" size="sm">
+        <Button variant="primary" size="sm" href="tel:+919074025365">
           Contact us
         </Button>
       </div>
@@ -80,7 +80,7 @@ export const Navbar = () => {
               </li>
             ))}
             <li className="pt-2">
-              <Button variant="primary" size="md" className="w-full">
+              <Button variant="primary" size="md" className="w-full" href="tel:+919074025365">
                 Contact us
               </Button>
             </li>

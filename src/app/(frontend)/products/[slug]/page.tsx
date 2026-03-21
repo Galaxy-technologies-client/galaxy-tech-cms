@@ -8,6 +8,7 @@ import { Footer } from '@/components/Footer'
 import { Reveal } from '@/components/ui/Reveal'
 import { SplitACGrid } from '@/components/SplitACGrid'
 import { CTA } from '@/components/CTA'
+import { FAQ } from '@/components/FAQ'
 import { ProductGallery } from './ProductGallery'
 
 interface PageProps {
@@ -260,6 +261,10 @@ export default async function ProductDetailsPage({ params }: PageProps) {
 
       <Reveal>
         <CTA />
+      </Reveal>
+
+      <Reveal>
+        <FAQ />
       </Reveal>
 
       <Footer />

@@ -75,7 +75,7 @@ export function CategoryProductGrid({
   const showFilters = showCapacities || showTechnologies
 
   const activePillClasses =
-    'flex justify-center items-center gap-[10px] px-4 py-2 rounded-[40px] border-[0.5px] border-[#B1CCD6] bg-white text-[#00668A] text-[14px] font-normal leading-[20px] cursor-pointer whitespace-nowrap transition-colors'
+    'flex justify-center items-center gap-[10px] px-4 py-2 rounded-[40px] bg-white text-[#00668A] text-[14px] font-normal leading-[20px] cursor-pointer whitespace-nowrap transition-colors shadow-sm'
   const inactivePillClasses =
     'flex justify-center items-center gap-[10px] px-4 py-2 rounded-[40px] text-[#161616] text-[14px] font-normal leading-[20px] hover:text-[#00668A] cursor-pointer transition-colors whitespace-nowrap'
 
@@ -89,7 +89,7 @@ export function CategoryProductGrid({
               <span className="text-bodyMedium text-textAlt font-medium mr-1 whitespace-nowrap">
                 Capacity :
               </span>
-              <div className="flex flex-row flex-wrap justify-center items-start p-1 bg-[#F8F8F8] border-[0.5px] border-[#B1CCD6] rounded-[40px] gap-2">
+              <div className="flex flex-row flex-wrap justify-center items-start p-1 bg-[#F8F8F8] rounded-[40px] gap-2">
                 <span
                   onClick={() => setSelectedCapacity('All')}
                   className={selectedCapacity === 'All' ? activePillClasses : inactivePillClasses}
@@ -114,7 +114,7 @@ export function CategoryProductGrid({
               <span className="text-bodyMedium text-textAlt font-medium mr-1 whitespace-nowrap">
                 Technology :
               </span>
-              <div className="flex flex-row flex-wrap justify-center items-start p-1 bg-[#F8F8F8] border-[0.5px] border-[#B1CCD6] rounded-[40px] gap-2">
+              <div className="flex flex-row flex-wrap justify-center items-start p-1 bg-[#F8F8F8] rounded-[40px] gap-2">
                 <span
                   onClick={() => setSelectedTechnology('All')}
                   className={selectedTechnology === 'All' ? activePillClasses : inactivePillClasses}

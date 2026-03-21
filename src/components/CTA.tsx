@@ -34,7 +34,7 @@ export function CTA() {
           >
             View models
           </Button>
-          <Button variant="secondary" className="bg-white border-none focus:ring-white">
+          <Button variant="secondary" className="bg-white border-none focus:ring-white" href="tel:+919074025365">
             Call us now
           </Button>
         </div>

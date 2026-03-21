@@ -5,6 +5,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
   variant?: 'primary' | 'secondary' | 'outline'
   size?: 'sm' | 'md' | 'lg'
+  href?: string
 }
 
 export default function Button({
@@ -12,10 +13,11 @@ export default function Button({
   variant = 'primary',
   size = 'sm',
   className = '',
+  href,
   ...props
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center font-regular rounded-full transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2'
+    'inline-flex items-center justify-center font-regular rounded-full transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 text-center'
 
   const variants = {
     primary: 'bg-primary text-white hover:bg-primaryDark focus:ring-primary',
@@ -28,6 +30,14 @@ export default function Button({
     sm: 'px-5 py-2.5 text-bodySmall',
     md: 'px-5 py-2.5 text-bodySmall md:px-6 md:py-3 md:text-bodyMedium',
     lg: 'px-5 py-2.5 text-bodySmall md:px-8 md:py-3.5 md:text-bodyMedium',
+  }
+
+  if (href) {
+    return (
+      <a href={href} className={clsx(baseStyles, variants[variant], sizes[size], className)}>
+        {children}
+      </a>
+    )
   }
 
   return (

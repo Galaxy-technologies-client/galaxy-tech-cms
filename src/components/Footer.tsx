@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Button from './ui/Button'
 
 export function Footer() {
   return (
@@ -55,12 +56,12 @@ export function Footer() {
                 About us
               </a>
             </li>
-            <li>
-              <a href="#" className="hover:text-primary transition-colors">
-                Contact
-              </a>
-            </li>
           </ul>
+          <div className="mt-s">
+            <Button variant="primary" size="sm" href="tel:+919074025365">
+              Contact us
+            </Button>
+          </div>
         </div>
       </div>
 

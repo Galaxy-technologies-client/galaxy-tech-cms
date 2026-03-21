@@ -35,7 +35,7 @@ export function FAQ() {
   }
 
   return (
-    <section className="flex flex-col lg:flex-row items-start justify-center py-xxl px-s md:px-xxxl gap-xxl bg-white w-full max-w-container mx-auto">
+    <section className="flex flex-col lg:flex-row items-start justify-center pt-xxl pb-xl px-s md:px-xxxl gap-xxl bg-white w-full max-w-container mx-auto">
       {/* Left side text */}
       <div className="flex flex-col items-start gap-xs w-full lg:w-5/12 max-w-md">
         <span className="text-bodyMedium text-primary font-semibold uppercase tracking-wider">

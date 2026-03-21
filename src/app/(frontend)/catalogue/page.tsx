@@ -43,7 +43,7 @@ export default function CataloguePage() {
       </section>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col pb-xxxl">
+      <div className="flex-1 flex flex-col">
         <Reveal>
           <ProductCategories hideHeader={true} />
         </Reveal>
