@@ -36,7 +36,7 @@ export function AboutUs() {
             ensures comfort you can depend on.
           </p>
 
-          <Button variant="outline" size="sm" className="mt-s px-8">
+          <Button variant="outline" size="sm" className="mt-s px-8" href="/about">
             Learn more
           </Button>
         </div>

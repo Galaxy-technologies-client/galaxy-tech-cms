@@ -49,7 +49,7 @@ export const ProductModels: CollectionConfig = {
 
     {
       name: 'images',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
       hasMany: true,
     },

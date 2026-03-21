@@ -42,17 +42,17 @@ export function Footer() {
         <div className="flex flex-col items-start lg:items-end gap-m lg:pt-12 w-full lg:w-auto">
           <ul className="flex flex-col items-start lg:items-end gap-s text-bodySmall font-regular text-text">
             <li>
-              <a href="#" className="hover:text-primary transition-colors">
+              <a href="/" className="hover:text-primary transition-colors">
                 Home
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-primary transition-colors">
+              <a href="/catalogue" className="hover:text-primary transition-colors">
                 Catalogue
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-primary transition-colors">
+              <a href="/about" className="hover:text-primary transition-colors">
                 About us
               </a>
             </li>
