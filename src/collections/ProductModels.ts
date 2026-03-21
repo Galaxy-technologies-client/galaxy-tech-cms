@@ -10,6 +10,44 @@ export const ProductModels: CollectionConfig = {
   admin: {
     useAsTitle: 'series',
   },
+  hooks: {
+    afterChange: [
+      async ({ doc, req, operation }) => {
+        const action = operation === 'create' ? 'Create' : 'Update'
+        
+        await req.payload.create({
+          collection: 'audit-logs',
+          data: {
+            action,
+            collectionName: 'product-models',
+            documentId: String(doc.id),
+            documentTitle: doc.name || doc.series || String(doc.id),
+            user: req.user?.id,
+            details: doc,
+          },
+          req, // Maintained atomicity!
+        })
+        return doc
+      },
+    ],
+    afterDelete: [
+      async ({ doc, req }) => {
+        await req.payload.create({
+          collection: 'audit-logs',
+          data: {
+            action: 'Delete',
+            collectionName: 'product-models',
+            documentId: String(doc.id),
+            documentTitle: doc.name || doc.series || String(doc.id),
+            user: req.user?.id,
+            details: doc,
+          },
+          req, // Maintained atomicity!
+        })
+        return doc
+      },
+    ],
+  },
   fields: [
     {
       name: 'series',

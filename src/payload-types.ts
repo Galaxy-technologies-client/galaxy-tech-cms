@@ -72,6 +72,7 @@ export interface Config {
     brands: Brand;
     categories: Category;
     'product-models': ProductModel;
+    'audit-logs': AuditLog;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     brands: BrandsSelect<false> | BrandsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'product-models': ProductModelsSelect<false> | ProductModelsSelect<true>;
+    'audit-logs': AuditLogsSelect<false> | AuditLogsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -263,6 +265,29 @@ export interface ProductModel {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "audit-logs".
+ */
+export interface AuditLog {
+  id: number;
+  action: 'Create' | 'Update' | 'Delete';
+  collectionName: string;
+  documentId: string;
+  documentTitle?: string | null;
+  user?: (number | null) | User;
+  details?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -304,6 +329,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'product-models';
         value: number | ProductModel;
+      } | null)
+    | ({
+        relationTo: 'audit-logs';
+        value: number | AuditLog;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -445,6 +474,20 @@ export interface ProductModelsSelect<T extends boolean = true> {
         id?: T;
       };
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "audit-logs_select".
+ */
+export interface AuditLogsSelect<T extends boolean = true> {
+  action?: T;
+  collectionName?: T;
+  documentId?: T;
+  documentTitle?: T;
+  user?: T;
+  details?: T;
   updatedAt?: T;
   createdAt?: T;
 }
