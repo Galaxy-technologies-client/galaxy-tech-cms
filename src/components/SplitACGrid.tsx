@@ -25,24 +25,6 @@ function getPriceRange(variants: ProductModel['variants']) {
   return `Rs ${minPrice.toLocaleString('en-IN')} - ${maxPrice.toLocaleString('en-IN')}`
 }
 
-function getMrpRange(variants: ProductModel['variants']) {
-  if (!variants || variants.length === 0) return null
-  const prices = variants
-    .map((v) => {
-      if (typeof v.mrp === 'number') return v.mrp
-      return null
-    })
-    .filter((p): p is number => p !== null)
-
-  if (prices.length === 0) return null
-  const minPrice = Math.min(...prices)
-  const maxPrice = Math.max(...prices)
-  if (minPrice === maxPrice) {
-    return `Rs ${minPrice.toLocaleString('en-IN')}`
-  }
-  return `Rs ${minPrice.toLocaleString('en-IN')} - ${maxPrice.toLocaleString('en-IN')}`
-}
-
 function getTonnages(variants: ProductModel['variants']) {
   if (!variants || variants.length === 0) return []
   const capacities = variants
@@ -113,7 +95,6 @@ export async function SplitACGrid({ hideViewAll = false }: { hideViewAll?: boole
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-[24px] w-full max-w-container mx-auto pb-4 pt-1">
           {fetchedProducts.map((product) => {
             const priceRange = getPriceRange(product.variants)
-            const mrpRange = getMrpRange(product.variants)
             const tonnages = getTonnages(product.variants)
 
             let imageUrl: string | undefined
@@ -133,7 +114,6 @@ export async function SplitACGrid({ hideViewAll = false }: { hideViewAll?: boole
                 key={product.id}
                 name={product.name || product.series}
                 priceRange={priceRange}
-                mrpRange={mrpRange}
                 tonnages={tonnages}
                 imageUrl={imageUrl}
                 href={`/products/${product.slug || product.id}`}

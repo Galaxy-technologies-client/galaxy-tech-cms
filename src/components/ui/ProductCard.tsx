@@ -6,7 +6,6 @@ import Link from 'next/link'
 export interface ProductCardProps {
   name: string
   priceRange: string
-  mrpRange?: string | null
   imageUrl?: string
   tonnages?: string[]
   className?: string
@@ -16,7 +15,6 @@ export interface ProductCardProps {
 export function ProductCard({
   name,
   priceRange,
-  mrpRange,
   imageUrl,
   tonnages,
   className = '',
@@ -65,11 +63,6 @@ export function ProductCard({
           <p className="text-textAlt font-poppins text-bodySmall font-semibold">
             {priceRange}
           </p>
-          {mrpRange && mrpRange !== priceRange && (
-            <p className="text-textAlt/70 font-poppins text-[12px] line-through">
-              {mrpRange}
-            </p>
-          )}
         </div>
 
         {/* Tonnage chips */}
