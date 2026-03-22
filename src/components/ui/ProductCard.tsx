@@ -6,6 +6,7 @@ import Link from 'next/link'
 export interface ProductCardProps {
   name: string
   priceRange: string
+  mrpRange?: string | null
   imageUrl?: string
   tonnages?: string[]
   className?: string
@@ -15,6 +16,7 @@ export interface ProductCardProps {
 export function ProductCard({
   name,
   priceRange,
+  mrpRange,
   imageUrl,
   tonnages,
   className = '',
@@ -59,9 +61,16 @@ export function ProductCard({
         </h3>
 
         {/* Pricing */}
-        <p className="text-textAlt font-poppins text-bodySmall font-regular text-left w-full">
-          {priceRange}
-        </p>
+        <div className="flex flex-row items-center gap-2 w-full pt-1">
+          <p className="text-textAlt font-poppins text-bodySmall font-semibold">
+            {priceRange}
+          </p>
+          {mrpRange && mrpRange !== priceRange && (
+            <p className="text-textAlt/70 font-poppins text-[12px] line-through">
+              {mrpRange}
+            </p>
+          )}
+        </div>
 
         {/* Tonnage chips */}
         {tonnages && tonnages.length > 0 && (

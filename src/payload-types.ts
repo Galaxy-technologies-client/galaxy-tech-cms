@@ -251,7 +251,8 @@ export interface ProductModel {
      */
     capacity?: number | null;
     modelNumber?: string | null;
-    price?: number | null;
+    mrp?: number | null;
+    dealerPrice?: number | null;
     energyRating?: number | null;
     roomSize?: string | null;
     coolingCapacityKW?: number | null;
@@ -465,7 +466,8 @@ export interface ProductModelsSelect<T extends boolean = true> {
     | {
         capacity?: T;
         modelNumber?: T;
-        price?: T;
+        mrp?: T;
+        dealerPrice?: T;
         energyRating?: T;
         roomSize?: T;
         coolingCapacityKW?: T;

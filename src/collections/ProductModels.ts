@@ -124,7 +124,13 @@ export const ProductModels: CollectionConfig = {
         },
 
         {
-          name: 'price',
+          name: 'mrp',
+          label: 'MRP (₹)',
+          type: 'number',
+        },
+        {
+          name: 'dealerPrice',
+          label: 'Dealer Price (₹)',
           type: 'number',
         },
 

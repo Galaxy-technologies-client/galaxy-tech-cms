@@ -19,7 +19,14 @@ interface PageProps {
 
 function getPriceRange(variants: ProductModel['variants']) {
   if (!variants || variants.length === 0) return 'Price on request'
-  const prices = variants.map((v) => v.price).filter((p): p is number => typeof p === 'number')
+  const prices = variants
+    .map((v) => {
+      if (typeof v.dealerPrice === 'number') return v.dealerPrice
+      if (typeof v.mrp === 'number') return v.mrp
+      return null
+    })
+    .filter((p): p is number => p !== null)
+
   if (prices.length === 0) return 'Price on request'
   const minPrice = Math.min(...prices)
   const maxPrice = Math.max(...prices)
@@ -187,9 +194,30 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                     <span className="text-primaryDark font-poppins text-[16px] font-semibold leading-[1.4]">
                       {v.modelNumber || 'Standard'}
                     </span>
-                    <span className="text-primaryDarkAlt font-poppins text-[16px] font-semibold leading-[1.4] mt-1">
-                      {v.price ? `Rs ${v.price.toLocaleString('en-IN')}` : 'Price on request'}
-                    </span>
+                    <div className="flex flex-row items-center gap-2 mt-1">
+                      {typeof v.dealerPrice === 'number' && typeof v.mrp === 'number' && v.dealerPrice !== v.mrp ? (
+                        <>
+                          <span className="text-primaryDarkAlt font-poppins text-[16px] font-semibold leading-[1.4]">
+                            Rs {v.dealerPrice.toLocaleString('en-IN')}
+                          </span>
+                          <span className="text-textAlt/70 font-poppins text-[13px] line-through leading-[1.4]">
+                            Rs {v.mrp.toLocaleString('en-IN')}
+                          </span>
+                        </>
+                      ) : typeof v.dealerPrice === 'number' ? (
+                        <span className="text-primaryDarkAlt font-poppins text-[16px] font-semibold leading-[1.4]">
+                          Rs {v.dealerPrice.toLocaleString('en-IN')}
+                        </span>
+                      ) : typeof v.mrp === 'number' ? (
+                        <span className="text-primaryDarkAlt font-poppins text-[16px] font-semibold leading-[1.4]">
+                          Rs {v.mrp.toLocaleString('en-IN')}
+                        </span>
+                      ) : (
+                        <span className="text-primaryDarkAlt font-poppins text-[16px] font-semibold leading-[1.4]">
+                          Price on request
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex flex-col gap-3 w-full">
