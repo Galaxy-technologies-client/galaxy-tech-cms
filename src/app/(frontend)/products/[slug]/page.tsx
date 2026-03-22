@@ -105,7 +105,12 @@ export default async function ProductDetailsPage({ params }: PageProps) {
             <h2 className="text-primaryDarkAlt font-semibold text-h3 md:text-h2 leading-tight">
               {product.name}
             </h2>
-            <p className="text-textAlt font-semibold text-h5 mt-2">{priceRange}</p>
+            <div className="flex flex-col mt-2">
+              <p className="text-textAlt font-semibold text-h4">{priceRange}</p>
+              <p className="text-[12px] text-textAlt/80 mt-1 max-w-[1000px] leading-snug">
+                Prices shown are indicative and may vary based on location, availability, and installation requirements.
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -164,7 +169,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
               <h3 className="text-primaryDarkAlt font-semibold text-h4">Variants</h3>
               <p className="text-textAlt text-bodyMedium">
                 {product.series
-                  ? `Daikin ${product.series} series comes in ${product.variants.length} variant${product.variants.length > 1 ? 's' : ''}.`
+                  ? `Daikin ${product.series} comes in ${product.variants.length} variant${product.variants.length > 1 ? 's' : ''}.`
                   : 'Available variants for this model.'}
               </p>
             </div>
@@ -248,15 +253,28 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                 </div>
               ))}
             </div>
+
+            {/* Terms and Conditions */}
+            <div className="flex flex-col gap-2 mt-4 text-textAlt text-bodySmall">
+              <h4 className="font-semibold text-primaryDark">Terms & Conditions</h4>
+              <ul className="list-disc pl-4 flex flex-col gap-2 text-textAlt/80">
+                <li>All prices displayed are indicative and may vary based on location, installation requirements, and site conditions.</li>
+                <li>Final pricing will be confirmed after a detailed assessment and customer approval.</li>
+                <li>Product availability is subject to stock and may change without prior notice.</li>
+                <li>Installation, delivery, and additional material charges (if any) will be communicated separately.</li>
+                <li>Warranty for all products is provided by the respective manufacturer and governed by their terms.</li>
+                <li>Product images are for illustrative purposes only; actual product specifications and appearance may vary.</li>
+                <li>Galaxy Technologies reserves the right to update product details, pricing, and offers without prior notice.</li>
+                <li>Orders will be processed only after confirmation of payment and serviceability in the customer&apos;s location.</li>
+              </ul>
+            </div>
           </div>
         </section>
       )}
 
       {/* Popular AC Models (reusing Grid component) */}
       <Reveal>
-        <div className="w-full bg-[#FAFAFA] py-xl border-t border-border">
-          <SplitACGrid />
-        </div>
+        <SplitACGrid />
       </Reveal>
 
       <Reveal>

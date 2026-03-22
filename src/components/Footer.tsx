@@ -77,9 +77,9 @@ export function Footer() {
           </p>
         </div>
         <div className="flex items-center">
-          <a href="#" className="text-bodySmall text-textAlt hover:text-primary transition-colors">
+          <Link href="/privacy-policy" className="text-bodySmall text-textAlt hover:text-primary transition-colors">
             Privacy Policy
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
