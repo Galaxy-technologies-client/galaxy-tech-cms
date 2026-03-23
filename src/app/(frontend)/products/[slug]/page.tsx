@@ -156,9 +156,9 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                 {product.features.map((item, idx) => (
                   <li
                     key={idx}
-                    className="flex items-center gap-3 text-text font-regular text-bodySmall"
+                    className="flex items-start gap-3 text-text font-regular text-bodySmall"
                   >
-                    <span className="w-[6px] h-[6px] rounded-full bg-primary shrink-0" />
+                    <span className="w-[6px] h-[6px] rounded-full bg-primary shrink-0 mt-[8px]" />
                     <span className="leading-snug">{item?.feature}</span>
                   </li>
                 ))}

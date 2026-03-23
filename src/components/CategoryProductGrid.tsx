@@ -45,6 +45,20 @@ export function CategoryProductGrid({
 }: CategoryProductGridProps) {
   const [selectedCapacity, setSelectedCapacity] = useState<number | 'All'>('All')
   const [selectedTechnology, setSelectedTechnology] = useState<string | 'All'>('All')
+  const [showMoreCapacities, setShowMoreCapacities] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(3)
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setVisibleCount(window.innerWidth < 768 ? 2 : 3)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const visibleCapacities = availableCapacities.slice(0, visibleCount)
+  const hiddenCapacities = availableCapacities.slice(visibleCount)
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -96,14 +110,14 @@ export function CategoryProductGrid({
               <span className="text-bodyMedium text-textAlt font-medium mr-1 whitespace-nowrap">
                 Capacity :
               </span>
-              <div className="flex flex-row flex-wrap justify-center items-start p-1 bg-[#F8F8F8] rounded-[40px] gap-2">
+              <div className="flex flex-row flex-nowrap items-center p-1 bg-[#F8F8F8] rounded-[40px] gap-2 w-full sm:w-auto overflow-visible">
                 <span
                   onClick={() => setSelectedCapacity('All')}
                   className={selectedCapacity === 'All' ? activePillClasses : inactivePillClasses}
                 >
                   All
                 </span>
-                {availableCapacities.map((cap) => (
+                {visibleCapacities.map((cap) => (
                   <span
                     key={cap}
                     onClick={() => setSelectedCapacity(cap)}
@@ -112,6 +126,42 @@ export function CategoryProductGrid({
                     {cap} Ton
                   </span>
                 ))}
+                
+                {hiddenCapacities.length > 0 && (
+                  <div className="relative">
+                    <span
+                      onClick={() => setShowMoreCapacities(!showMoreCapacities)}
+                      className={
+                        typeof selectedCapacity === 'number' && hiddenCapacities.includes(selectedCapacity)
+                          ? activePillClasses
+                          : inactivePillClasses
+                      }
+                    >
+                      +{hiddenCapacities.length} more {showMoreCapacities ? '▲' : '▼'}
+                    </span>
+                    
+                    {showMoreCapacities && (
+                      <div className="absolute top-full right-0 mt-2 bg-white shadow-md rounded-[12px] p-2 flex flex-col gap-1 z-20 min-w-[140px] border border-border">
+                        {hiddenCapacities.map((cap) => (
+                          <span
+                            key={cap}
+                            onClick={() => {
+                              setSelectedCapacity(cap)
+                              setShowMoreCapacities(false)
+                            }}
+                            className={`px-3 py-2 rounded-[8px] cursor-pointer text-[14px] whitespace-nowrap transition-colors ${
+                              selectedCapacity === cap
+                                ? 'bg-[#F0F8FB] text-[#00668A] font-medium'
+                                : 'hover:bg-lightGrey text-text'
+                            }`}
+                          >
+                            {cap} Ton
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -121,7 +171,7 @@ export function CategoryProductGrid({
               <span className="text-bodyMedium text-textAlt font-medium mr-1 whitespace-nowrap">
                 Technology :
               </span>
-              <div className="flex flex-row flex-wrap justify-center items-start p-1 bg-[#F8F8F8] rounded-[40px] gap-2">
+              <div className="flex flex-row flex-nowrap items-center p-1 bg-[#F8F8F8] rounded-[40px] gap-2 w-full sm:w-auto overflow-visible">
                 <span
                   onClick={() => setSelectedTechnology('All')}
                   className={selectedTechnology === 'All' ? activePillClasses : inactivePillClasses}
