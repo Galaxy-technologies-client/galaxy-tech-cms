@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { ProductCard } from '@/components/ui/ProductCard'
 import { getPayload } from 'payload'
@@ -115,7 +116,7 @@ export async function FullCatalogue() {
 
             {/* Products Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-[24px] w-full max-w-container mx-auto">
-              {category.products.map((product) => {
+              {category.products.slice(0, 4).map((product) => {
                 const priceRange = getPriceRange(product.variants)
                 const tonnages = getTonnages(product.variants)
 
@@ -144,25 +145,27 @@ export async function FullCatalogue() {
               })}
             </div>
 
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-s px-xl rounded-full border-primary text-primary hover:bg-primarySurface"
-            >
-              View All{' '}
-              {(category.name || '').toLowerCase().includes('split')
-                ? 'Split AC Models'
-                : (category.name || '').toLowerCase().includes('cassette')
-                  ? 'Cassette AC Models'
-                  : (category.name || '').toLowerCase().includes('duct')
-                    ? 'Ductable Systems'
-                    : (category.name || '').toLowerCase().includes('vrv') ||
-                        (category.name || '').toLowerCase().includes('vrf')
-                      ? 'VRV / VRF Systems'
-                      : (category.name || '').toLowerCase().includes('tower')
-                        ? 'Tower AC Models'
-                        : category.name || 'Category'}
-            </Button>
+            <Link href={`/categories/${category.slug || category.id}`} className="mt-s">
+              <Button
+                variant="outline"
+                size="sm"
+                className="px-xl rounded-full border-primary text-primary hover:bg-primarySurface"
+              >
+                View All{' '}
+                {(category.name || '').toLowerCase().includes('split')
+                  ? 'Split AC Models'
+                  : (category.name || '').toLowerCase().includes('cassette')
+                    ? 'Cassette AC Models'
+                    : (category.name || '').toLowerCase().includes('duct')
+                      ? 'Ductable Systems'
+                      : (category.name || '').toLowerCase().includes('vrv') ||
+                          (category.name || '').toLowerCase().includes('vrf')
+                        ? 'VRV / VRF Systems'
+                        : (category.name || '').toLowerCase().includes('tower')
+                          ? 'Tower AC Models'
+                          : category.name || 'Category'}
+              </Button>
+            </Link>
           </section>
 
           {/* Divider between categories (except the last one) */}

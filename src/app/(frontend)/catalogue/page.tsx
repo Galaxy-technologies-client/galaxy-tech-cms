@@ -2,7 +2,6 @@ import React from 'react'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { Reveal } from '@/components/ui/Reveal'
-import { ProductCategories } from '@/components/ProductCategories'
 import { FullCatalogue } from '@/components/FullCatalogue'
 import { CTA } from '@/components/CTA'
 import { FAQ } from '@/components/FAQ'
@@ -44,10 +43,6 @@ export default function CataloguePage() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        <Reveal>
-          <ProductCategories hideHeader={true} />
-        </Reveal>
-
         <Reveal>
           <FullCatalogue />
         </Reveal>
