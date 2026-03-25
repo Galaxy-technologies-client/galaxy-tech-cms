@@ -79,10 +79,10 @@ export async function FullCatalogue() {
       const categoryProducts = allProducts.filter((product) => {
         const productCat = product.category
         if (!productCat) return false
-        if (typeof productCat === 'number') {
-          return productCat === cat.id
+        if (typeof productCat === 'number' || typeof productCat === 'string') {
+          return String(productCat) === String(cat.id)
         }
-        return productCat.id === cat.id
+        return String(productCat.id) === String(cat.id)
       })
 
       return {
@@ -90,7 +90,7 @@ export async function FullCatalogue() {
         products: categoryProducts,
       }
     })
-    .filter((cat) => cat.products.length > 0)
+    .filter((cat) => cat.products && cat.products.length > 0)
 
   return (
     <div className="flex flex-col w-full bg-white gap-m pb-xxxl">
