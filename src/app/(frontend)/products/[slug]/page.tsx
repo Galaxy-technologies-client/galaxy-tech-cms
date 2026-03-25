@@ -221,62 +221,81 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                   </div>
 
                   <div className="flex flex-col gap-3 w-full">
-                    <div className="flex justify-between items-center w-full">
-                      <span className="text-textAlt font-regular text-bodySmall">
-                        Energy rating :
-                      </span>
-                      <div className="flex gap-1 justify-end">
-                        {Array.from({ length: v.energyRating || 0 }).map((_, i) => (
-                          <svg
-                            key={i}
-                            width="16"
-                            height="15"
-                            viewBox="0 0 16 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M7.99965 0L10.4566 5.0933L15.9997 5.8653L11.9678 9.714L12.9515 15L7.99965 12.3392L3.04781 15L4.03147 9.714L-0.000350952 5.8653L5.54271 5.0933L7.99965 0Z"
-                              fill="#F5A623"
-                            />
-                          </svg>
-                        ))}
+                    {typeof v.energyRating === 'number' && v.energyRating > 0 && (
+                      <div className="flex justify-between items-center w-full">
+                        <span className="text-textAlt font-regular text-bodySmall">
+                          Energy rating :
+                        </span>
+                        <div className="flex gap-1 justify-end">
+                          {Array.from({ length: v.energyRating }).map((_, i) => (
+                            <svg
+                              key={i}
+                              width="16"
+                              height="15"
+                              viewBox="0 0 16 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7.99965 0L10.4566 5.0933L15.9997 5.8653L11.9678 9.714L12.9515 15L7.99965 12.3392L3.04781 15L4.03147 9.714L-0.000350952 5.8653L5.54271 5.0933L7.99965 0Z"
+                                fill="#F5A623"
+                              />
+                            </svg>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
 
-                    <div className="flex justify-between items-center w-full">
-                      <span className="text-textAlt font-regular text-bodySmall">Room size :</span>
-                      <span className="text-text font-semibold text-bodySmall text-right">
-                        {v.roomSize || '-'}
-                      </span>
-                    </div>
+                    {v.roomSize && (
+                      <div className="flex justify-between items-center w-full">
+                        <span className="text-textAlt font-regular text-bodySmall">Room size :</span>
+                        <span className="text-text font-semibold text-bodySmall text-right">
+                          {v.roomSize}
+                        </span>
+                      </div>
+                    )}
 
-                    <div className="flex justify-between items-center w-full">
-                      <span className="text-textAlt font-regular text-bodySmall">
-                        Capacity kW :
-                      </span>
-                      <span className="text-text font-semibold text-bodySmall text-right">
-                        {v.coolingCapacityKW || '-'}
-                      </span>
-                    </div>
+                    {v.powerSupply && (
+                      <div className="flex justify-between items-center w-full">
+                        <span className="text-textAlt font-regular text-bodySmall">Power Supply :</span>
+                        <span className="text-text font-semibold text-bodySmall text-right">
+                          {v.powerSupply}
+                        </span>
+                      </div>
+                    )}
 
-                    <div className="flex justify-between items-center w-full">
-                      <span className="text-textAlt font-regular text-bodySmall">
-                        Indoor model :
-                      </span>
-                      <span className="text-text font-semibold text-bodySmall text-right">
-                        {v.indoorModel || '-'}
-                      </span>
-                    </div>
+                    {v.coolingCapacityKW && (
+                      <div className="flex justify-between items-center w-full">
+                        <span className="text-textAlt font-regular text-bodySmall">
+                          Capacity kW :
+                        </span>
+                        <span className="text-text font-semibold text-bodySmall text-right">
+                          {v.coolingCapacityKW}
+                        </span>
+                      </div>
+                    )}
 
-                    <div className="flex justify-between items-center w-full">
-                      <span className="text-textAlt font-regular text-bodySmall">
-                        Outdoor model :
-                      </span>
-                      <span className="text-text font-semibold text-bodySmall text-right">
-                        {v.outdoorModel || '-'}
-                      </span>
-                    </div>
+                    {v.indoorModel && (
+                      <div className="flex justify-between items-center w-full">
+                        <span className="text-textAlt font-regular text-bodySmall">
+                          Indoor model :
+                        </span>
+                        <span className="text-text font-semibold text-bodySmall text-right">
+                          {v.indoorModel}
+                        </span>
+                      </div>
+                    )}
+
+                    {v.outdoorModel && (
+                      <div className="flex justify-between items-center w-full">
+                        <span className="text-textAlt font-regular text-bodySmall">
+                          Outdoor model :
+                        </span>
+                        <span className="text-text font-semibold text-bodySmall text-right">
+                          {v.outdoorModel}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

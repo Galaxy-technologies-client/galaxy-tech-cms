@@ -251,6 +251,7 @@ export interface ProductModel {
      */
     capacity?: number | null;
     modelNumber?: string | null;
+    powerSupply?: ('Single Phase' | 'Three Phase') | null;
     mrp?: number | null;
     dealerPrice?: number | null;
     energyRating?: number | null;
@@ -466,6 +467,7 @@ export interface ProductModelsSelect<T extends boolean = true> {
     | {
         capacity?: T;
         modelNumber?: T;
+        powerSupply?: T;
         mrp?: T;
         dealerPrice?: T;
         energyRating?: T;

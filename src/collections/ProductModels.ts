@@ -124,6 +124,16 @@ export const ProductModels: CollectionConfig = {
         },
 
         {
+          name: 'powerSupply',
+          type: 'select',
+          required: false,
+          options: [
+            { label: 'Single Phase', value: 'Single Phase' },
+            { label: 'Three Phase', value: 'Three Phase' },
+          ],
+        },
+
+        {
           name: 'mrp',
           label: 'MRP (₹)',
           type: 'number',
